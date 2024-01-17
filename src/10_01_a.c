@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <mpi.h>
 
 void mpi_exit(const int error){
   int inited = 0;
@@ -23,14 +24,14 @@ int main(int argc, char ** argv)
   // the success or failure of the operation
   int mpi_error;
   
-  //mpi_error = MPI_Init(...);
+  mpi_error = MPI_Init(&argc, &argv);
   
   check_mpi_error(mpi_error, __FILE__, __LINE__-1);
 
   int rank = 0;
   int n_ranks = 1;
-  //MPI_Comm_rank(...);
-  //MPI_Comm_size(...);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &n_ranks);
 
   printf("This is rank id %d. The total number of MPI ranks is %d.\n", rank, n_ranks);
 
