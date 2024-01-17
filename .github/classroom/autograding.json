@@ -1,0 +1,134 @@
+{
+  "tests": [
+    {
+      "name": "compile and run 10_01_a",
+      "setup": ".github/setup.sh",
+      "run": ".github/compile.sh 10_01_a && mpirun -np 16 --oversubscribe bin/10_01_a",
+      "input": "",
+      "output": "This is rank id 3. The total number of MPI ranks is 16.",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "compile and run 10_01_b",
+      "setup": "",
+      "run": ".github/compile.sh 10_01_b && mpirun -np 12 --oversubscribe bin/10_01_b",
+      "input": "",
+      "output": "Rank 0 sent 0 to rank 1 and received 121 from rank 11",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "compile and run 10_01_c",
+      "setup": "",
+      "run": ".github/compile.sh 10_01_c && mpirun -np 7 --oversubscribe bin/10_01_c",
+      "input": "",
+      "output": "Rank 6 sent 66 to rank 0 and received 55 from rank 5",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "compile and run 10_01_d",
+      "setup": "",
+      "run": ".github/compile.sh 10_01_d && mpirun -np 4 --oversubscribe bin/10_01_d",
+      "input": "",
+      "output": "Rank 2 sent 22 to rank 3 and received 11 from rank 1",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "comple and run 10_01_e",
+      "setup": "",
+      "run": ".github/compile.sh 10_01_e && mpirun -np 8 --oversubscribe bin/10_01_e 16",
+      "input": "",
+      "output": "No mismatches.",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "compile and run 10_01_f",
+      "setup": "",
+      "run": ".github/compile.sh 10_01_f && mpirun --oversubscribe -np 5 bin/10_01_f 25",
+      "input": "",
+      "output": "Rank 3: no mismatches",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 2
+    },
+    {
+      "name": "compile and run 10_02_a",
+      "setup": "",
+      "run": ".github/compile.sh 10_02_a && mpirun --oversubscribe -np 4 bin/10_02_a",
+      "input": "",
+      "output": "No mismatches.",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 2
+    },
+    {
+      "name": "compile and run 10_02_b",
+      "setup": "",
+      "run": ".github/compile.sh 10_02_b && mpirun --oversubscribe -np 5 bin/10_02_b",
+      "input": "",
+      "output": "Rank 3: no mismatches",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "compile and run 10_03_a",
+      "setup": "",
+      "run": ".github/compile.sh 10_03_a && mpirun --oversubscribe -np 5 bin/10_03_a 25 ",
+      "input": "",
+      "output": "Rank 3: no mismatches",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 2
+    },
+    {
+      "name": "compile and run 10_03_b",
+      "setup": "",
+      "run": ".github/compile.sh 10_03_b && mpirun --oversubscribe -np 5 bin/10_03_b 25",
+      "input": "",
+      "output": "Rank 3: no mismatches",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 3
+    },
+    {
+      "name": "compile and run 10_03_c",
+      "setup": "",
+      "run": ".github/compile.sh 10_03_c && mpirun --oversubscribe -np 9 bin/10_03_c 3",
+      "input": "",
+      "output": "Rank 7 (world) has rank 1 in its color_comm (color 2), which has size 3",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "compile and run 10_03_d",
+      "setup": "",
+      "run": ".github/compile.sh 10_03_d && mpirun --oversubscribe -np 9 bin/10_03_d 3",
+      "input": "",
+      "output": "(  3 [ 1, 0] [ 0, 1])  (  4 [ 1, 1] [ 1, 1])  (  5 [ 1, 2] [ 2, 1])",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "compile and run 10_03_e",
+      "setup": "",
+      "run": ".github/compile.sh 10_03_e && mpirun --oversubscribe -np 9 bin/10_03_e 15 3",
+      "input": "",
+      "output": "Rank 5: no mismatches",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 4
+    }
+  ]
+}
