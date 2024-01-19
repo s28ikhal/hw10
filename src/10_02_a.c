@@ -71,16 +71,17 @@ int main(int argc, char ** argv)
   
   // perform an element-wise sum of the local_vec (residing on all ranks), summing into
   // 'reduced_vec' on rank 0
-  //MPI_Reduce(...);
+  MPI_Reduce(local_vec, reduced_vec, vec_size, MPI_DOUBLE, MPI_SUM, 0,
+           MPI_COMM_WORLD);
 
   for(int r = 1; r < n_ranks; ++r){
     if(rank == 0){
-      // MPI_Recv(remote_vec, ...);
+      MPI_Recv(remote_vec, vec_size, MPI_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       for(long int i = 0; i < vec_size; ++i){
         accum_vec[i] += remote_vec[i];
       }
     } else {
-      // MPI_Send(local_vec, ...);
+      MPI_Send(local_vec, vec_size, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD);
     }
   }
   
@@ -93,7 +94,7 @@ int main(int argc, char ** argv)
   }
   
   // use MPI_Bcast to communicate the value of mismatch_counter from rank 0 to all other ranks
-  //MPI_Bcast(&mismatch_counter, ...);
+  // MPI_Bcast(&mismatch_counter, 1, MPI_LONG, 0, MPI_COMM_WORLD);
 
   free(local_vec);
   if(rank == 0){

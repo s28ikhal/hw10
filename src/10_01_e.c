@@ -41,13 +41,13 @@ int main(int argc, char ** argv)
   // in principle almost every MPI function returns an integer to communicate
   // the success or failure of the operation
   int mpi_error;
-  //mpi_error = MPI_Init(...);
+  mpi_error = MPI_Init(&argc, &argv);
   check_mpi_error(mpi_error, __FILE__, __LINE__-1);
 
   int rank = 0;
   int n_ranks = 1;
-  //MPI_Comm_rank(...);
-  //MPI_Comm_size(...);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &n_ranks);
 
   long int vec_size = 32;
   if(argc > 1){
@@ -76,7 +76,7 @@ int main(int argc, char ** argv)
   }
   
   // gather vectors from all ranks in 'global_vec'
-  //MPI_Allgather(...);
+  MPI_Allgather(local_vec, local_vec_size, MPI_INT, global_vec, vec_size, MPI_INT, MPI_COMM_WORLD);
 
   // on rank 0, we are going to check that 'global_vec' contains the correct entries, need
   // a buffer for this purpose
@@ -89,11 +89,11 @@ int main(int argc, char ** argv)
   long int mismatch_count = 0;
   for(int r = 1; r < n_ranks; ++r){
     if(rank == 0){
-      //MPI_Recv(remote_vec, ..., MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-      int offset; // = ...; <- what's the correct offset?
+      MPI_Recv(remote_vec, local_vec_size, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      int offset = local_vec_size * r; // = ...; <- what's the correct offset?
       mismatch_count += compare_gather_remote(global_vec, remote_vec, vec_size, offset, local_vec_size, r); 
     } else if(rank == r) {
-      //MPI_Send(local_vec, ..., MPI_COMM_WORLD);
+      MPI_Send(local_vec, local_vec_size, MPI_INT, 0, 0, MPI_COMM_WORLD);
     }
   }
 
